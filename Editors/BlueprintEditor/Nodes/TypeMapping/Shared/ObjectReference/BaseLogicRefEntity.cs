@@ -50,11 +50,18 @@ namespace BlueprintEditorPlugin.Editors.BlueprintEditor.Nodes.TypeMapping.Shared
 
             Header = $"{ObjectType} ({assetEntry.Filename})";
 
-            if (asset.RootObject.GetType().GetProperty("PropertyConnections") == null)
+            if(asset == null)
             {
+                //App.Logger.Log("Asset Was Null!");
                 return;
             }
-
+            else
+            {
+                if (asset.RootObject.GetType().GetProperty("PropertyConnections") == null)
+                {
+                    return;
+                }
+            }
             PointerRef interfaceRef = ((dynamic)asset.RootObject).Interface;
             if (interfaceRef.Type == PointerRefType.Null)
             {
